@@ -24,11 +24,16 @@ class Game
     @x = Board.new
     @p1 = Player.new("P1")
     @p2 = Player.new("P2")
+    @win = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
   end
+
+  def 
+
   def printboard
     puts @x.get_board.to_s, @p1.get_name, @p2.get_name
   end
 end
+
 
 #########################################
 # Code below is just for testing purposes
