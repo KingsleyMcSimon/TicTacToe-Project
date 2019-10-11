@@ -20,7 +20,7 @@ https://github.com/KingsleyMcSimon/TicTacToe-Project
 
 # Contributors:
 Kingsley McSimon Ogbonna @KingsleyMcSimon and
-Roberto Eric Nava Martinez @Oitur
+Roberto Erik Nava Martinez @Oitur
 
 # Language Used:
 Ruby Language
