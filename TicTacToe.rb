@@ -1,18 +1,10 @@
 # /usr/bin/ruby
 
 class Player
-  def initialize(name)
+  attr_accessor :name, :taken
+  def initialize(name="Player")
     @name = name
     @taken = []
-  end
-  def get_name
-    @name
-  end
-  def my_turn(arg)
-    @taken.push(arg)
-  end
-  def get_taken
-    @taken
   end
 end
 
@@ -33,7 +25,8 @@ class Game
     @board = Board.new
     @p1 = Player.new("P1")
     @p2 = Player.new("P2")
-    @win = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
+    @win = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], 
+            [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
     @p1current = true
   end
 
@@ -51,10 +44,10 @@ class Game
   def turns
     if @p1current
       puts "Player 1:"
-      @p1.my_turn(get_input)
+      @p1.taken.push(get_input)
     else
       puts "Player 2:"
-      @p2.my_turn(get_input)
+      @p2.taken.push(get_input)
     end
     @p1current = @p1current ? false : true
   end
@@ -64,8 +57,8 @@ class Game
     turns
     turns
     turns
-    puts @p1.get_taken.to_s
-    puts @p2.get_taken.to_s
+    puts @p1.taken.to_s
+    puts @p2.taken.to_s
     puts @board.get_board.to_s
   end
 end
