@@ -63,6 +63,48 @@ class Game
   end
 end
 
+def taken(@p1.taken, @p2.taken)
+  if @p1.taken
+    puts "Wait for the next turn"
+  elsif
+    @p2.taken
+    puts "You can play"
+  else
+    puts "No more space to put your token"
+  end
+
+
+  def create_win
+    @win = {
+      '1', => ' ',
+      '2', => ' ',
+      '3', => ' ',
+      '4', => ' ',
+      '5', => ' ',
+      '6', => ' ',
+      '7', => ' ',
+      '8', => ' ',
+      '9', => ' ',
+    }
+
+  end
+
+  def display_result
+    puts ""
+    puts " #{@win['1']} | #{@win['2']} | #{@win['3']}"
+    puts " #{@win['4']} | #{@win['5']} | #{@win['6']}"
+    puts " #{@win['7']} | #{@win['8']} | #{@win['9']}"
+    puts ""
+  end
+
+  def game_verifier
+    stop_game = false
+    if ((@win['1'] == @win['2'] && @win['1'] == @win['3']) && (@win['1'] != ' ' && @win['2'] != ' ' && @win['3'] != ' '))
+      stop_game = true
+      winning = @win['1']
+      
+
+
 
 #########################################
 # Code below is just for testing purposes
