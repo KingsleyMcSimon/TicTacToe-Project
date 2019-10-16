@@ -102,7 +102,9 @@ def taken(@p1.taken, @p2.taken)
     if ((@win['1'] == @win['2'] && @win['1'] == @win['3']) && (@win['1'] != ' ' && @win['2'] != ' ' && @win['3'] != ' '))
       stop_game = true
       winning = @win['1']
-      
+    elsif
+
+
 
 
 
