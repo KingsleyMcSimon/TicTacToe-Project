@@ -1,5 +1,13 @@
 #!/usr/bin/ruby
 
+class Player
+  attr_accessor :name, :taken
+  def initialize(name="Player")
+    @name = name
+    @taken = []
+  end
+end
+
 class Board
   def initialize(p1="x")
     @inner = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -18,6 +26,10 @@ class Board
     puts "-----------"
     puts " " + @inner[6].to_s + " | " + @inner[7].to_s + " | " + @inner[8].to_s + " "
   end
+end
+
+class Game
+  # In here will be the actual game logic and methods
 end
 
 #########
