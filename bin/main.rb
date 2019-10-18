@@ -2,29 +2,29 @@
 
 class Player
   attr_accessor :name, :taken
-  def initialize(name="Player")
+  def initialize(name = 'Player')
     @name = name
     @taken = []
   end
 end
 
 class Board
-  def initialize(p1="x")
+  def initialize(play1 = 'x')
     @inner = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
   def get_board
     @inner
   end
   def take_place(inpt, play)
-    @inner[inpt-1] = play ? "O" : "X"
+    @inner[inpt-1] = play ? 'O' : 'X'
   end
   def draw_board
     # This will probably be done on the actual game class later in the project
-    puts " " + @inner[0].to_s + " | " + @inner[1].to_s + " | " + @inner[2].to_s + " "
-    puts "-----------"
-    puts " " + @inner[3].to_s + " | " + @inner[4].to_s + " | " + @inner[5].to_s + " "
-    puts "-----------"
-    puts " " + @inner[6].to_s + " | " + @inner[7].to_s + " | " + @inner[8].to_s + " "
+    puts ' '  + @inner[0].to_s + ' | ' + @inner[1].to_s + ' | ' + @inner[2].to_s + ' '
+    puts '-----------'
+    puts ' ' + @inner[3].to_s + ' | ' + @inner[4].to_s + ' | ' + @inner[5].to_s + ' '
+    puts '-----------'
+    puts ' ' + @inner[6].to_s + ' | ' + @inner[7].to_s + ' | ' + @inner[8].to_s + ' '
   end
 end
 
