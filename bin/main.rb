@@ -9,15 +9,15 @@ class Player
 end
 
 class Board
-  def initialize(play1 = 'x')
+  attr_accessor :inner
+  def initialize
     @inner = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
-  def get_board
-    @inner
-  end
+
   def take_place(inpt, play)
     @inner[inpt-1] = play ? 'O' : 'X'
   end
+  
   def draw_board
     # This will probably be done on the actual game class later in the project
     puts ' '  + @inner[0].to_s + ' | ' + @inner[1].to_s + ' | ' + @inner[2].to_s + ' '
