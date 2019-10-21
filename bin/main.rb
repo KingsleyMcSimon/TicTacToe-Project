@@ -19,7 +19,6 @@ class Board
   end
 
   def draw_board
-    # This will probably be done on the actual game class later in the project
     puts '\n ' + @inner[0].to_s + ' | ' + @inner[1].to_s + ' | ' + @inner[2].to_s + ' '
     puts '-----------'
     puts ' ' + @inner[3].to_s + ' | ' + @inner[4].to_s + ' | ' + @inner[5].to_s + ' '
@@ -29,7 +28,14 @@ class Board
 end
 
 class Game
-  # In here will be the actual game logic and methods
+  def initialize
+    @board = Board.new
+    @p1 = Player.new("P1")
+    @p2 = Player.new("P2")
+    @win = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], 
+            [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
+    @p1current = true
+  end
 end
 
 #########
