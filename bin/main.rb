@@ -36,6 +36,50 @@ class Game
             [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
     @p1current = true
   end
+
+  def get_input
+    gotten = gets.chomp.to_i
+    if @board.get_board.include? gotten
+      @board.take_place(gotten, @p1current)
+      gotten
+    else
+      puts "Your selection is not in the board, try again"
+      get_input
+    end
+  end
+
+  def is_winner(curr)
+    winner = false
+    condition = []
+    @win.each do |cond|
+      f = (curr.include? cond[0]) && (curr.include? cond[1]) && (curr.include? cond[2])
+      condition.push(f)
+    end
+    if condition.any?
+      winner = true
+    end
+    @board.draw_board
+    puts "\nYou Win" if winner
+    winner
+  end
+
+  def turns
+    if @p1current
+      puts "Player 1:"
+      @p1.taken.push(get_input)
+    else
+      puts "Player 2:"
+      @p2.taken.push(get_input)
+    end
+    if @p1current
+      @p1current = false
+      return @p1.taken
+    else
+      @p1current = true
+      return @p2.taken
+    end
+  end
+
 end
 
 #########
