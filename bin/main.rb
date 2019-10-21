@@ -37,27 +37,25 @@ class Game
     @p1current = true
   end
 
-  def get_input
+  def input_check
     gotten = gets.chomp.to_i
-    if @board.get_board.include? gotten
+    if @board.inner.include? gotten
       @board.take_place(gotten, @p1current)
       gotten
     else
       puts "Your selection is not in the board, try again"
-      get_input
+      input_check
     end
   end
 
-  def is_winner(curr)
+  def winner?(curr)
     winner = false
     condition = []
     @win.each do |cond|
       f = (curr.include? cond[0]) && (curr.include? cond[1]) && (curr.include? cond[2])
       condition.push(f)
     end
-    if condition.any?
-      winner = true
-    end
+    winner = true if condition.any?
     @board.draw_board
     puts "\nYou Win" if winner
     winner
@@ -66,10 +64,10 @@ class Game
   def turns
     if @p1current
       puts "Player 1:"
-      @p1.taken.push(get_input)
+      @p1.taken.push(input_check)
     else
       puts "Player 2:"
-      @p2.taken.push(get_input)
+      @p2.taken.push(input_check)
     end
     if @p1current
       @p1current = false
@@ -82,9 +80,9 @@ class Game
 
   def printboard
     @board.draw_board
-    until is_winner(turns)
+    until winner?(turns)
       @board.draw_board
-      unless @board.get_board.any? { |i| i.is_a? Numeric }
+      unless @board.inner.any? { |i| i.is_a? Numeric }
         puts "No more space left to play"
         break
       end
