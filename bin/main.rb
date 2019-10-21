@@ -43,7 +43,7 @@ class Game
       @board.take_place(gotten, @p1current)
       gotten
     else
-      puts "Your selection is not in the board, try again"
+      puts 'Your selection is not in the board, try again'
       input_check
     end
   end
@@ -63,10 +63,10 @@ class Game
 
   def turns
     if @p1current
-      puts "Player 1:"
+      puts 'Player 1:'
       @p1.taken.push(input_check)
     else
-      puts "Player 2:"
+      puts 'Player 2:'
       @p2.taken.push(input_check)
     end
     if @p1current
@@ -83,7 +83,7 @@ class Game
     until winner?(turns)
       @board.draw_board
       unless @board.inner.any? { |i| i.is_a? Numeric }
-        puts "No more space left to play"
+        puts 'No more space left to play'
         break
       end
     end
