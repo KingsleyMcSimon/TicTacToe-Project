@@ -80,8 +80,19 @@ class Game
     end
   end
 
+  def printboard
+    @board.draw_board
+    while !(is_winner(turns))
+      @board.draw_board
+      unless (@board.get_board.any? { |i| i.is_a? Numeric })
+        puts "No more space left to play"
+        break
+      end
+    end
+  end
 end
 
 #########
-bord = Board.new
-bord.draw_board
+
+game = Game.new
+game.printboard
