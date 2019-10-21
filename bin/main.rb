@@ -30,9 +30,9 @@ end
 class Game
   def initialize
     @board = Board.new
-    @p1 = Player.new("P1")
-    @p2 = Player.new("P2")
-    @win = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], 
+    @p1 = Player.new('P1')
+    @p2 = Player.new('P2')
+    @win = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7],
             [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
     @p1current = true
   end
@@ -82,9 +82,9 @@ class Game
 
   def printboard
     @board.draw_board
-    while !(is_winner(turns))
+    until is_winner(turns)
       @board.draw_board
-      unless (@board.get_board.any? { |i| i.is_a? Numeric })
+      unless @board.get_board.any? { |i| i.is_a? Numeric }
         puts "No more space left to play"
         break
       end
