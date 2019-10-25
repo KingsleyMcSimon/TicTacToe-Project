@@ -14,25 +14,9 @@ def welcome
   or the board is full, if there's no winner the game results in a tie.)
 end
 
-def draw_board(board)
-  # Draws the current board based on the list that's provided
-  rows = ["\n"]
-  rowstring = '    '
-  board.each_with_index do |v, i|
-    box = ' ' + v.to_s + ' '
-    rowstring = i % 3 == 2 ? rowstring + box : rowstring + box + '|'
-    next if i % 3 != 2
-
-    rows.push(rowstring)
-    rows.push('    ---+---+---')
-    rowstring = '    '
-  end
-  rows.pop
-  rows.push("\n")
-  rows
-end
-
 def o_or_x(player)
+  # This ensures that the input is either 'O' or 'X'
+  # if input is just blank, it defaults to 'O'
   puts "\nPlease select 'O' or 'X' for #{player}. (Default = 'O')"
   sel = gets.chomp.upcase
   sel = 'O' if sel == ''
@@ -45,6 +29,7 @@ def o_or_x(player)
 end
 
 def player_set
+  # Sets up the names of the players and which symbol they'll use
   players = []
   2.times do |i|
     puts "\nType a name for Player #{i + 1} (default = Player#{i + 1})"
@@ -60,6 +45,8 @@ def player_set
 end
 
 def valid_turn(arr)
+  # This is to ensure that whatever is taken from the input, can be taken
+  # from the board.
   selection = gets.chomp.to_i
   if arr.include? selection
     selection
@@ -70,18 +57,19 @@ def valid_turn(arr)
 end
 
 def game_reset
+  # This is the actual game with its mechanics.
   board = Board.new
   inputs = player_set
   p1 = Player.new(inputs[0], inputs[1])
   p2 = Player.new(inputs[2], inputs[3])
   game = Game.new(p1, p2, board)
-  puts draw_board(board.inner)
+  puts board.draw
   until game.over
     str = ', please select a position'
     str = game.p1turn ? p1.name + str : p2.name + str
     puts str
     game.turn(valid_turn(board.inner))
-    puts draw_board(board.inner)
+    puts board.draw
   end
   puts "#{p1.name} Wins!" if p1.winner?
   puts "#{p2.name} Wins!" if p2.winner?

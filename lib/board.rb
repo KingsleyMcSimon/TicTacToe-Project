@@ -13,4 +13,22 @@ class Board
     @inner[inpt - 1] = player.symbol
     @full = true unless @inner.any? { |i| i.is_a? Numeric }
   end
+
+  def draw
+    # Draws the current board
+    rows = ["\n"]
+    rowstring = '    '
+    @inner.each_with_index do |v, i|
+      box = ' ' + v.to_s + ' '
+      rowstring = i % 3 == 2 ? rowstring + box : rowstring + box + '|'
+      next if i % 3 != 2
+  
+      rows.push(rowstring)
+      rows.push('    ---+---+---')
+      rowstring = '    '
+    end
+    rows.pop
+    rows.push("\n")
+    rows
+  end
 end
