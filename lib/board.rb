@@ -22,7 +22,7 @@ class Board
       box = ' ' + v.to_s + ' '
       rowstring = i % 3 == 2 ? rowstring + box : rowstring + box + '|'
       next if i % 3 != 2
-  
+
       rows.push(rowstring)
       rows.push('    ---+---+---')
       rowstring = '    '
