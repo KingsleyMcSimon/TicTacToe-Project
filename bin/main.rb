@@ -22,6 +22,7 @@ def draw_board(board)
     box = ' ' + v.to_s + ' '
     rowstring = i % 3 == 2 ? rowstring + box : rowstring + box + '|'
     next if i % 3 != 2
+
     rows.push(rowstring)
     rows.push('    ---+---+---')
     rowstring = '    '
@@ -35,7 +36,7 @@ def o_or_x(player)
   puts "\nPlease select 'O' or 'X' for #{player}. (Default = 'O')"
   sel = gets.chomp.upcase
   sel = 'O' if sel == ''
-  if %w(O X).include? sel
+  if %w[O X].include? sel
     sel
   else
     puts 'Not a valid option, please try again'
