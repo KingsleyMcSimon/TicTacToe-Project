@@ -6,9 +6,9 @@ require_relative '../lib/game.rb'
 
 def welcome
   # Welcome screen (to only be displayed when game starts)
-  string = %Q(
+  %(
   Welcome to Tic Tac Toe. \n
-  Tic Tac Toe is a popular 2-player game in which the goal is to get 3 
+  Tic Tac Toe is a popular 2-player game in which the goal is to get 3
   similar symbols in line, be it horizontally, vertically or diagonally
   on a 3x3 drawn grid. The players alternate turns until there is a winner
   or the board is full, if there's no winner the game results in a tie.)
@@ -20,7 +20,7 @@ def draw_board(board)
   rowstring = '    '
   board.each_with_index do |v, i|
     box = ' ' + v.to_s + ' '
-    rowstring = i % 3 == 2 ? rowstring + box : rowstring + box + "|"
+    rowstring = i % 3 == 2 ? rowstring + box : rowstring + box + '|'
     if i % 3 == 2
       rows.push(rowstring)
       rows.push('    ---+---+---')
@@ -30,11 +30,6 @@ def draw_board(board)
   rows.pop
   rows.push("\n")
   rows
-end
-
-def player_name
-  puts 'Type your name:'
-  n1 = gets.chomp.capitalize
 end
 
 def o_or_x(player)
