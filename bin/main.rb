@@ -47,9 +47,9 @@ end
 def player_set
   players = []
   2.times do |i|
-    puts "\nType a name for Player #{i + 1} (default = Player #{i + 1})"
+    puts "\nType a name for Player #{i + 1} (default = Player#{i + 1})"
     p = gets.chomp.capitalize
-    p = p == '' ? "Player #{i + 1}" : p
+    p = p == '' ? "Player#{i + 1}" : p
     puts "Player #{i + 1}'s name set as '#{p}'"
     players.push(p)
   end
@@ -59,20 +59,34 @@ def player_set
   [players[0], sel, players[1], sel2]
 end
 
-board = Board.new
-puts welcome
-inputs = player_set
-p1 = Player.new(inputs[0], inputs[1])
-p2 = Player.new(inputs[2], inputs[3])
-game = Game.new(p1, p2, board)
-puts draw_board(board.inner)
-until game.over
-  str = ', please select a position'
-  str = game.p1turn ? p1.name + str : p2.name + str
-  puts str
-  game.turn(gets.chomp.to_i)
-  puts draw_board(board.inner)
+def valid_turn(arr)
+  selection = gets.chomp.to_i
+  if arr.include? selection
+    selection
+  else
+    puts "That's not a valid input, try again"
+    valid_turn(arr)
+  end
 end
-puts "#{p1.name} won" if p1.winner?
-puts "#{p2.name} won" if p2.winner?
-puts 'This ended in a tie.' if game.tie
+
+def game_reset
+  board = Board.new
+  inputs = player_set
+  p1 = Player.new(inputs[0], inputs[1])
+  p2 = Player.new(inputs[2], inputs[3])
+  game = Game.new(p1, p2, board)
+  puts draw_board(board.inner)
+  until game.over
+    str = ', please select a position'
+    str = game.p1turn ? p1.name + str : p2.name + str
+    puts str
+    game.turn(valid_turn(board.inner))
+    puts draw_board(board.inner)
+  end
+  puts "#{p1.name} Wins!" if p1.winner?
+  puts "#{p2.name} Wins!" if p2.winner?
+  puts 'This ended in a tie.' if game.tie
+end
+
+puts welcome
+game_reset
