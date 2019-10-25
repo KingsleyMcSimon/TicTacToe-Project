@@ -35,11 +35,11 @@ end
 def o_or_x(player)
   puts "\nPlease select 'O' or 'X' for #{player}. (Default = 'O')"
   sel = gets.chomp.upcase
-  sel = 'O' if sel === ''
-  if sel == 'O' || sel == 'X'
+  sel = 'O' if sel == ''
+  if ['O', 'X'].include? sel
     sel
   else
-    puts "Not a valid option, please try again"
+    puts 'Not a valid option, please try again'
     o_or_x(player)
   end
 end
@@ -55,7 +55,7 @@ def player_set
   end
   sel = o_or_x(players[0])
   sel2 = sel == 'O' ? 'X' : 'O'
-  return [players[0], sel, players[1], sel2]
+  [players[0], sel, players[1], sel2]
 end
 
 board = Board.new
