@@ -20,8 +20,9 @@ class Game
     current = @p1turn ? @play1 : @play2
     @board.take_place(sel, current)
     current.taken.push(sel)
-    @over = true if @play1.winner? || @play2.winner? || @board.full
-    @tie = true if @board.full && !(@play1.winner? || @play2.winner?)
+    winover = @play1.winner? || @play2.winner?
+    @over = true if winover || @board.full
+    @tie = true if @board.full && !winover
     @p1turn = @p1turn ? false : true
   end
 end

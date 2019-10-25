@@ -74,4 +74,4 @@ until game.over
 end
 puts "#{p1.name} won" if p1.winner?
 puts "#{p2.name} won" if p2.winner?
-puts "This ended in a tie." if game.tie
+puts 'This ended in a tie.' if game.tie
