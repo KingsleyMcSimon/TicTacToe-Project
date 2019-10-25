@@ -54,17 +54,24 @@ def player_set
   end
   sel = o_or_x(players[0])
   sel2 = sel == 'O' ? 'X' : 'O'
+  puts "#{players[0]} will be '#{sel}'\n#{players[1]} will be '#{sel2}'"
   [players[0], sel, players[1], sel2]
 end
 
 board = Board.new
 puts welcome
 inputs = player_set
-puts inputs.to_s
 p1 = Player.new(inputs[0], inputs[1])
 p2 = Player.new(inputs[2], inputs[3])
 game = Game.new(p1, p2, board)
-3.times do
+puts draw_board(board.inner)
+until game.over
+  str = ', please select a position'
+  str = game.p1turn ? p1.name + str : p2.name + str
+  puts str
   game.turn(gets.chomp.to_i)
   puts draw_board(board.inner)
 end
+puts "#{p1.name} won" if p1.winner?
+puts "#{p2.name} won" if p2.winner?
+puts "This ended in a tie." if game.tie

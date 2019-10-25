@@ -11,7 +11,6 @@ class Board
 
   def take_place(inpt, player)
     @inner[inpt - 1] = player.symbol
-    player.taken.push(inpt)
     @full = true unless @inner.any? { |i| i.is_a? Numeric }
   end
 end
