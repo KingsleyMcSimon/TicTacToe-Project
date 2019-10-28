@@ -1,96 +1,80 @@
 #!/usr/bin/ruby
 
-class Player
-  attr_accessor :name, :taken
-  def initialize(name = 'Player')
-    @name = name
-    @taken = []
+require_relative '../lib/player.rb'
+require_relative '../lib/board.rb'
+require_relative '../lib/game.rb'
+
+def welcome
+  # Welcome screen (to only be displayed when game starts)
+  %(
+  Welcome to Tic Tac Toe. \n
+  Tic Tac Toe is a popular 2-player game in which the goal is to get 3
+  similar symbols in line, be it horizontally, vertically or diagonally
+  on a 3x3 drawn grid. The players alternate turns until there is a winner
+  or the board is full, if there's no winner the game results in a tie.)
+end
+
+def o_or_x(player)
+  # This ensures that the input is either 'O' or 'X'
+  # if input is just blank, it defaults to 'O'
+  puts "\nPlease select 'O' or 'X' for #{player}. (Default = 'O')"
+  sel = gets.chomp.upcase
+  sel = 'O' if sel == ''
+  if %w[O X].include? sel
+    sel
+  else
+    puts 'Not a valid option, please try again'
+    o_or_x(player)
   end
 end
 
-class Board
-  attr_accessor :inner
-  def initialize
-    @inner = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+def player_set
+  # Sets up the names of the players and which symbol they'll use
+  players = []
+  2.times do |i|
+    puts "\nType a name for Player #{i + 1} (default = Player#{i + 1})"
+    p = gets.chomp.capitalize
+    p = p == '' ? "Player#{i + 1}" : p
+    puts "Player #{i + 1}'s name set as '#{p}'"
+    players.push(p)
   end
+  sel = o_or_x(players[0])
+  sel2 = sel == 'O' ? 'X' : 'O'
+  puts "#{players[0]} will be '#{sel}'\n#{players[1]} will be '#{sel2}'"
+  [players[0], sel, players[1], sel2]
+end
 
-  def take_place(inpt, play)
-    @inner[inpt - 1] = play ? 'o' : 'x'
-  end
-
-  def draw_board
-    puts "\n " + @inner[0].to_s + ' | ' + @inner[1].to_s + ' | ' + @inner[2].to_s + ' '
-    puts '-----------'
-    puts ' ' + @inner[3].to_s + ' | ' + @inner[4].to_s + ' | ' + @inner[5].to_s + ' '
-    puts '-----------'
-    puts ' ' + @inner[6].to_s + ' | ' + @inner[7].to_s + ' | ' + @inner[8].to_s + " \n\n"
+def valid_turn(arr)
+  # This is to ensure that whatever is taken from the input, can be taken
+  # from the board.
+  selection = gets.chomp.to_i
+  if arr.include? selection
+    selection
+  else
+    puts "That's not a valid input, try again"
+    valid_turn(arr)
   end
 end
 
-class Game
-  def initialize
-    @board = Board.new
-    @p1 = Player.new('P1')
-    @p2 = Player.new('P2')
-    @win = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7],
-            [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
-    @p1current = true
+def game_reset
+  # This is the actual game with its mechanics.
+  board = Board.new
+  inputs = player_set
+  p1 = Player.new(inputs[0], inputs[1])
+  p2 = Player.new(inputs[2], inputs[3])
+  game = Game.new(p1, p2, board)
+  puts board.draw
+  until game.over
+    str = ', please select a position'
+    str = game.p1turn ? p1.name + str : p2.name + str
+    puts str
+    game.turn(valid_turn(board.inner))
+    puts board.draw
   end
-
-  def input_check
-    gotten = gets.chomp.to_i
-    if @board.inner.include? gotten
-      @board.take_place(gotten, @p1current)
-      gotten
-    else
-      puts 'Your selection is not in the board, try again'
-      input_check
-    end
-  end
-
-  def winner?(curr)
-    winner = false
-    condition = []
-    @win.each do |cond|
-      f = (curr.include? cond[0]) && (curr.include? cond[1]) && (curr.include? cond[2])
-      condition.push(f)
-    end
-    winner = true if condition.any?
-    @board.draw_board
-    puts "\nYou Win" if winner
-    winner
-  end
-
-  def turns
-    if @p1current
-      puts 'Player 1:'
-      @p1.taken.push(input_check)
-    else
-      puts 'Player 2:'
-      @p2.taken.push(input_check)
-    end
-    if @p1current
-      @p1current = false
-      return @p1.taken
-    else
-      @p1current = true
-      return @p2.taken
-    end
-  end
-
-  def printboard
-    @board.draw_board
-    until winner?(turns)
-      @board.draw_board
-      unless @board.inner.any? { |i| i.is_a? Numeric }
-        puts 'No more space left to play'
-        break
-      end
-    end
-  end
+  puts "#{p1.name} Wins!" if p1.winner?
+  puts "#{p2.name} Wins!" if p2.winner?
+  puts 'This ended in a tie.' if game.tie
 end
 
-#########
-
-game = Game.new
-game.printboard
+puts welcome
+game_reset
