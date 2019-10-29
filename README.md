@@ -57,7 +57,7 @@ From this point on, just enter current player's selection for the place you want
 Erik, please select a position
 1
 ```
-After you enter it, it will be displayed on screen and ask next player to make his/her choice until there is a winner or there is no more space to play on.
+After you enter it, it will be displayed on screen and ask next player to make his/her choice.
 
 ```
      X | 2 | 3 
@@ -69,6 +69,8 @@ After you enter it, it will be displayed on screen and ask next player to make h
 Kingsley, please select a position
 
 ```
+This will continue until there is a winner or there is no more space left to play, in which case the game will end in a tie.
+
 # Built With:
 
 This game was built using the Ruby Language.
