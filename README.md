@@ -20,6 +20,13 @@ The game also known as noughts and cross (British English) or Xs and Os is a pap
 
 The TicTacToe game is also played by two humans. It's board is a 3 X 3 grid and players alternate turns until one player is victorious or the game ends in a draw. Players win by securing three consecutive positions on a row, column, or diagonal. The game ends in a tie if neither player has won and all position on the board are taken.
 
+```
+$ git clone git@github.com:KingsleyMcSimon/TicTacToe-Project.git
+$ cd  Tic_Tac_Toe-Project
+$ ruby bin/main.rb
+
+```
+
 # Built With:
 
 This game was built using the Ruby Language.
