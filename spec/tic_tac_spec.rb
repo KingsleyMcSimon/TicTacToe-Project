@@ -14,7 +14,7 @@ describe Player do
   context 'Player should be able to know its symbol and return it' do
     it 'returns its name when .name is called' do
       p1 = Player.new('Player1', 'X')
-      expect(p1.symbol).to eq ('X')
+      expect(p1.symbol).to eq 'X'
     end
   end
   context 'Player should be able to tell if it won or not' do
